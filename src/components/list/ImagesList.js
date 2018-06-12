@@ -9,7 +9,8 @@ class ImagesList extends Component {
 
   render() {
     return (
-      this.state.arr.map( element=>
+      <div className={'imagesList'}>
+        {this.state.arr.map( element=>
         <VisibilitySensor>
           {({isVisible}) =>
           <div> {isVisible ? (<IronImage
@@ -18,8 +19,8 @@ class ImagesList extends Component {
             placeholder={'https://www.planwallpaper.com/static/cache/4e/4f/4e4ffcdb4e1cd3b42a65db2bb209c910.jpg'}
             src={'https://www.planwallpaper.com/static/cache/4e/4f/4e4ffcdb4e1cd3b42a65db2bb209c910.jpg'}/>)}
            </div>}
-            </VisibilitySensor>)
-
+            </VisibilitySensor>)}
+      </div>
 
     )
   }
