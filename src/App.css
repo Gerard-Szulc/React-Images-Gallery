@@ -43,5 +43,5 @@ div.iron-image__container {
 .imagesList{
   display: flex;
   flex-wrap: wrap;
-
+  justify-content: center;
 }
