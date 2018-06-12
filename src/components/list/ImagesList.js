@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import IronImage from 'react-image-lazy-load-component';
 import VisibilitySensor from 'react-visibility-sensor'
 
