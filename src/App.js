@@ -20,7 +20,13 @@ class App extends Component {
             </div>
         ) : (
         <div className="App">
-        <input type="file" onChange={this.props.handleFileChange}/>
+        <input
+          style={{display: 'none'}}
+          type="file"
+          onChange={this.props.handleFileChange}
+        ref={ fileInput => this.fileInput = fileInput}
+        />
+          <button onClick={()=>this.fileInput.click()}>Pick File</button>
         <button onClick={this.props.hendleUploadFile}>Upload</button>
     <header className="App-header">
         <h1>Your Gallery</h1>
