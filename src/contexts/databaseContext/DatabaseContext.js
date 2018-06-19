@@ -7,24 +7,33 @@ const DatabaseContext = React.createContext()
 
 export const DatabaseConsumer = DatabaseContext.Consumer;
 
-//
-// firebase.initializeApp(config);
-// const storage = firebase.storage()
-// const storageRef = storage.ref()
 
+firebase.initializeApp(config);
+const storage = firebase.storage()
+const storageRef = storage.ref()
 
 export class DatabaseProvider extends Component {
 
   state = {
-    fileName: 'lol',
-    handleFileChange: (event)=>{
-      console.log(event)
-      // this.setState({
-      //   fileName: (+new Date()) + '-' + event.target.files[0],
-      // })
-    }
+    selectedFile: null,
+    handleFileChange: (event) => {
+      this.setState({
+        selectedFile: event.target.files[0]
+      })
+    },
+    hendleUploadFile: () => {
+      if (this.state.selectedFile !== null) {
+        const filesRef = storageRef.child('files/' + firebase.auth().currentUser.uid + '/' + this.state.selectedFile.name)
+        console.log(this.state.selectedFile.name)
+        filesRef.put(this.state.selectedFile).then(function (snapshot) {
+          console.log(snapshot);
+        })
+        this.setState({selectedFile: null})
+      }
 
-  };
+    }
+  }
+
 
 
 
