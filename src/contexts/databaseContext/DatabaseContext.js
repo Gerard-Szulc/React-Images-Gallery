@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import {auth} from 'firebase'
 import firebase from 'firebase'
 import config from '../../firebase/config/config'
 
 const DatabaseContext = React.createContext()
 
 export const DatabaseConsumer = DatabaseContext.Consumer;
-
 
 firebase.initializeApp(config);
 const storage = firebase.storage()
@@ -15,6 +13,7 @@ const storageRef = storage.ref()
 export class DatabaseProvider extends Component {
 
   state = {
+    images: [],
     selectedFile: null,
     handleFileChange: (event) => {
       this.setState({
@@ -23,7 +22,7 @@ export class DatabaseProvider extends Component {
     },
     hendleUploadFile: () => {
       if (this.state.selectedFile !== null) {
-        const filesRef = storageRef.child('files/' + firebase.auth().currentUser.uid + '/' + this.state.selectedFile.name)
+        const filesRef = storageRef.child(firebase.auth().currentUser.uid + '/files/' + this.state.selectedFile.name)
         console.log(this.state.selectedFile.name)
         filesRef.put(this.state.selectedFile).then(function (snapshot) {
           console.log(snapshot);
@@ -34,11 +33,20 @@ export class DatabaseProvider extends Component {
     }
   }
 
+  handleSnapshot = snapshot =>{
+console.log(snapshot)
+  }
+componentDidMount(){
+    firebase.auth().currentUser && 
+    storageRef.refFromUrl('gs://react-images-gallery.appspot.com/'+firebase.auth().currentUser.uid+'/files/').getDownloadURL().then(urls=>this.handleSnapshot(urls))
 
+
+}
 
 
 
   render(){
+
     return(
       <DatabaseContext.Provider value={this.state}>
         {this.props.children}
