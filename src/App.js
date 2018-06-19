@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
 import ImagesList from "./components/list/ImagesList";
-import firebase from 'firebase'
-import config from './firebase/config/config'
+import {DatabaseProvider, withDatabase} from "./contexts/databaseContext/DatabaseContext";
 
-
-firebase.initializeApp(config);
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <input type="file" onChange={this.props.handleFileChange}/>
+
+    <header className="App-header">
         <h1>Your Gallery</h1>
+          {/*<form onSubmit={this.props.handleFileSubmit}>*/}
+          {/*<label htmlFor="fileItem">Upload File</label>*/}
+
+        {/*</form>*/}
         </header>
         <ImagesList/>
       </div>
@@ -21,4 +24,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withDatabase(App);
