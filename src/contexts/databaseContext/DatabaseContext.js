@@ -9,7 +9,7 @@ export const DatabaseConsumer = DatabaseContext.Consumer;
 firebase.initializeApp(config);
 const storage = firebase.storage()
 const storageRef = storage.ref()
-
+const database = firebase.database()
 export class DatabaseProvider extends Component {
 
   state = {
@@ -24,23 +24,28 @@ export class DatabaseProvider extends Component {
       if (this.state.selectedFile !== null) {
         const filesRef = storageRef.child(firebase.auth().currentUser.uid + '/files/' + this.state.selectedFile.name)
         console.log(this.state.selectedFile.name)
-        filesRef.put(this.state.selectedFile).then(function (snapshot) {
+        const uploadTask = filesRef.put(this.state.selectedFile).then(function (snapshot) {
           console.log(snapshot);
-        })
-        this.setState({selectedFile: null})
-      }
+          filesRef.getDownloadURL().then(url=>{
+              database.ref().child('users/'+firebase.auth().currentUser.uid).push(url)      
+          });
+        
+      
+    })
+    this.setState({selectedFile: null})
+    }
 
     }
   }
+  
 
-  handleSnapshot = snapshot =>{
-console.log(snapshot)
-  }
+
 componentDidMount(){
     firebase.auth().currentUser && 
-    storageRef.refFromUrl('gs://react-images-gallery.appspot.com/'+firebase.auth().currentUser.uid+'/files/').getDownloadURL().then(urls=>this.handleSnapshot(urls))
-
-
+    database.ref('users/' + firebase.auth().currentUser.uid).on('value', snapshot=>{
+    this.setState({images: snapshot.val()})
+  })
+    
 }
 
 
