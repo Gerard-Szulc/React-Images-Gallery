@@ -5,11 +5,19 @@ import {withDatabase} from "./contexts/databaseContext/DatabaseContext";
 import {withUser} from "./contexts/users/Users";
 import SignInForm from './authentication/SignIn'
 import SignUpForm from './authentication/SignUp'
-
-
+import firebase from 'firebase'
 
 
 class App extends Component {
+
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged(user=>{ 
+      if (user){
+       this.props.handleAllImagesDownload()
+      }
+    })
+  }
+
   render() {
     return (
       this.props.user === null ? (

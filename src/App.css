@@ -33,7 +33,10 @@ div .iron-image{
   width: 10rem;
 
 }
-
+div .iron-image img{
+  width: 10rem;
+  height: 10rem;
+}
 div.iron-image__container {
   height: 10rem;
   width: 10rem;

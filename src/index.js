@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import {DatabaseProvider} from "./contexts/databaseContext/DatabaseContext";
 import {UserProvider} from "./contexts/users/Users";
 
+
 ReactDOM.render(
   <UserProvider>
   <DatabaseProvider>

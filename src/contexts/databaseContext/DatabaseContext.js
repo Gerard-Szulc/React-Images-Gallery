@@ -7,13 +7,14 @@ const DatabaseContext = React.createContext()
 export const DatabaseConsumer = DatabaseContext.Consumer;
 
 firebase.initializeApp(config);
+
 const storage = firebase.storage()
 const storageRef = storage.ref()
 const database = firebase.database()
 export class DatabaseProvider extends Component {
 
   state = {
-    images: [],
+    images: null,
     selectedFile: null,
     handleFileChange: (event) => {
       this.setState({
@@ -24,34 +25,38 @@ export class DatabaseProvider extends Component {
       if (this.state.selectedFile !== null) {
         const filesRef = storageRef.child(firebase.auth().currentUser.uid + '/files/' + this.state.selectedFile.name)
         console.log(this.state.selectedFile.name)
-        const uploadTask = filesRef.put(this.state.selectedFile).then(function (snapshot) {
+         filesRef.put(this.state.selectedFile).then(snapshot =>{
           console.log(snapshot);
           filesRef.getDownloadURL().then(url=>{
-              database.ref().child('users/'+firebase.auth().currentUser.uid).push(url)      
+              database.ref().child('users/'+ firebase.auth().currentUser.uid).push(url)      
           });
         
-      
     })
-    this.setState({selectedFile: null})
-    }
+      this.setState({selectedFile: null})
 
     }
+
+    },
+    handleAllImagesDownload: ()=>{
+    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/').on('value', snapshot=>{
+
+    snapshot.val() !== null && this.setState(
+      {
+        images: Object.values(snapshot.val())
+      })
+
+  })
+
   }
   
 
 
-componentDidMount(){
-    firebase.auth().currentUser && 
-    database.ref('users/' + firebase.auth().currentUser.uid).on('value', snapshot=>{
-    this.setState({images: snapshot.val()})
-  })
-    
+
 }
 
 
 
   render(){
-
     return(
       <DatabaseContext.Provider value={this.state}>
         {this.props.children}
