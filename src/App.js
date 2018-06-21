@@ -5,18 +5,11 @@ import {withDatabase} from "./contexts/databaseContext/DatabaseContext";
 import {withUser} from "./contexts/users/Users";
 import SignInForm from './authentication/SignIn'
 import SignUpForm from './authentication/SignUp'
-import firebase from 'firebase'
 
 
 class App extends Component {
 
-  componentDidMount(){
-    firebase.auth().onAuthStateChanged(user=>{ 
-      if (user){
-       this.props.handleAllImagesDownload()
-      }
-    })
-  }
+
 
   render() {
     return (
@@ -34,6 +27,7 @@ class App extends Component {
         <input
           style={{display: 'none'}}
           type="file"
+          accept="image/*"
           onChange={this.props.handleFileChange}
         ref={ fileInput => this.fileInput = fileInput}
         />

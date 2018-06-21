@@ -10,7 +10,6 @@ firebase.initializeApp(config);
 
 const storage = firebase.storage()
 const storageRef = storage.ref()
-const database = firebase.database()
 export class DatabaseProvider extends Component {
 
   state = {
@@ -23,13 +22,11 @@ export class DatabaseProvider extends Component {
     },
     hendleUploadFile: () => {
       if (this.state.selectedFile !== null) {
-        const filesRef = storageRef.child(firebase.auth().currentUser.uid + '/files/' + this.state.selectedFile.name +'/' + this.state.selectedFile.name )
+        const filesRef = storageRef.child(firebase.auth().currentUser.uid +'/' + this.state.selectedFile.name )
         console.log(this.state.selectedFile.name)
          filesRef.put(this.state.selectedFile).then(snapshot =>{
           console.log(snapshot);
-          filesRef.getDownloadURL().then(url=>{
-              database.ref().child('users/'+ firebase.auth().currentUser.uid).push(url)      
-          });
+         
         
     })
       this.setState({selectedFile: null})
@@ -44,16 +41,16 @@ export class DatabaseProvider extends Component {
       {
         images: Object.values(snapshot.val())
       })
-
   })
-
   }
-  
-
-
-
 }
-
+componentDidMount(){
+  firebase.auth().onAuthStateChanged(user=>{ 
+    if (user){
+     this.state.handleAllImagesDownload()
+    }
+  })
+}
 
 
   render(){

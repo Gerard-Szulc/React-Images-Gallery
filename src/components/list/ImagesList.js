@@ -16,9 +16,9 @@ console.log(this.props.images)
         <VisibilitySensor partialVisibility={true} key={index}>
           {({isVisible}) => 
           <div> {isVisible ? (<IronImage
-              placeholder={''}
-              src={element}/>) : (<IronImage
-            placeholder={''}
+              placeholder={element.thumbnail}
+              src={element.path}/>) : (<IronImage
+            placeholder={element.thumbnail}
             src={""}/>)}
            </div>}
             </VisibilitySensor>)})
