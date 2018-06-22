@@ -10,6 +10,8 @@ firebase.initializeApp(config);
 
 const storage = firebase.storage()
 const storageRef = storage.ref()
+ 
+
 export class DatabaseProvider extends Component {
 
   state = {
@@ -39,9 +41,13 @@ export class DatabaseProvider extends Component {
 
     snapshot.val() !== null && this.setState(
       {
-        images: Object.values(snapshot.val())
+        images: Object.entries(snapshot.val())
       })
   })
+  },
+  handleDelete: imageRef=>{
+    firebase.database().ref('users/'+ firebase.auth().currentUser.uid +'/' + imageRef ).remove()
+    this.state.images.length === 1 &&  this.setState({images: null}) 
   }
 }
 componentDidMount(){

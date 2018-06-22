@@ -12,16 +12,20 @@ console.log(this.props.images)
       this.props.images ? (  
       <div className={'imagesList'}>
         { this.props.images.map( (element,index) =>{
-        return (
+        return (<div>
         <VisibilitySensor partialVisibility={true} key={index}>
           {({isVisible}) => 
           <div> {isVisible ? (<IronImage
-              placeholder={element.thumbnail}
-              src={element.path}/>) : (<IronImage
-            placeholder={element.thumbnail}
+              placeholder={element[1].thumbnail}
+              src={element[1].path}/>) : (<IronImage
+            placeholder={element[1].thumbnail}
             src={""}/>)}
            </div>}
-            </VisibilitySensor>)})
+            </VisibilitySensor>
+              <button onClick={()=>this.props.handleDelete(element[0])}>Delete</button>
+            </div>)
+          }
+          )
       }
       </div>
     ): <p>nothing here</p>
