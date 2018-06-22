@@ -30,16 +30,16 @@
 div .iron-image{
   position: relative;
   height: 10rem;
-  width: 10rem;
+  width: auto;
 
 }
 div .iron-image img{
-  width: 10rem;
+  width: auto;
   height: 10rem;
 }
 div.iron-image__container {
   height: 10rem;
-  width: 10rem;
+  width: auto;
   margin: 1rem;
 
 }
