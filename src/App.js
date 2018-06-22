@@ -33,6 +33,7 @@ class App extends Component {
         />
           <button onClick={()=>this.fileInput.click()}>Pick File</button>
         <button onClick={this.props.hendleUploadFile}>Upload</button>
+        <p>{this.props.selectedFile && this.props.selectedFile.name}</p>
         </header>
         <ImagesList/>
       </div>)

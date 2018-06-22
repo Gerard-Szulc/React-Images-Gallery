@@ -21,7 +21,7 @@ export class DatabaseProvider extends Component {
       })
     },
     hendleUploadFile: () => {
-      if (this.state.selectedFile !== null) {
+      if (this.state.selectedFile  && this.state.selectedFile !== null) {
         const filesRef = storageRef.child(firebase.auth().currentUser.uid +'/' + this.state.selectedFile.name )
         console.log(this.state.selectedFile.name)
          filesRef.put(this.state.selectedFile).then(snapshot =>{
