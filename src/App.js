@@ -31,6 +31,7 @@ class App extends Component {
           onChange={this.props.handleFileChange}
         ref={ fileInput => this.fileInput = fileInput}
         />
+        <p>{this.props.selectedFile && this.props.selectedFile.name}</p>
           <button onClick={()=>this.fileInput.click()}>Pick File</button>
         <button onClick={this.props.hendleUploadFile}>Upload</button>
         </header>
