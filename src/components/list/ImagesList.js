@@ -3,6 +3,7 @@ import IronImage from 'react-image-lazy-load-component';
 import VisibilitySensor from 'react-visibility-sensor'
 import { withDatabase } from '../../contexts/databaseContext/DatabaseContext';
 import { withUser } from '../../contexts/users/Users';
+import ImageModal from '../modal/ImageModal';
 
 class ImagesList extends Component {
 
@@ -15,13 +16,22 @@ console.log(this.props.images)
         return (<div>
         <VisibilitySensor partialVisibility={true} key={index}>
           {({isVisible}) => 
-          <div> {isVisible ? (<IronImage
+          <div> {isVisible ? (
+          
+          <IronImage
               placeholder={element[1].thumbnail}
-              src={element[1].path}/>) : (<IronImage
+              src={element[1].path}
+              
+              />
+            ) : (              
+          <IronImage
             placeholder={element[1].thumbnail}
-            src={""}/>)}
+            src={""}
+            />)
+            }
            </div>}
             </VisibilitySensor>
+              <ImageModal/>
               <button onClick={()=>this.props.handleDelete(element[0])}>Delete</button>
             </div>)
           }
