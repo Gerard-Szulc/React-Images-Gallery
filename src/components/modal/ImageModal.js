@@ -26,7 +26,7 @@ export class ImageModal extends Component {
             mainSrc={this.props.images[this.state.photoIndex][1].path}
             nextSrc={this.props.images[(this.state.photoIndex + 1) % this.props.images.length][1].path}
             prevSrc={this.props.images[(this.state.photoIndex + this.props.images.length - 1) % this.props.images.length][1].path}
-            onCloseRequest={() => this.setState({ isOpen: false })}
+            onCloseRequest={() => this.setState({photoIndex: this.props.index, isOpen: false })}
             onMovePrevRequest={() =>
               this.setState({
                 photoIndex: (this.state.photoIndex + this.props.images.length - 1) % this.props.images.length,
