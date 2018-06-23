@@ -31,7 +31,7 @@ console.log(this.props.images)
             }
            </div>}
             </VisibilitySensor>
-              <ImageModal/>
+              <ImageModal index={index}/>
               <button onClick={()=>this.props.handleDelete(element[0])}>Delete</button>
             </div>)
           }

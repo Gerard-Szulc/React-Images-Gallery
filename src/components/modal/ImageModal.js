@@ -23,18 +23,18 @@ export class ImageModal extends Component {
  
         {this.props.images && this.state.isOpen && (
           <Lightbox
-            mainSrc={this.props.images[this.state.photoIndex][1].path}
-            nextSrc={this.props.images[(this.state.photoIndex + 1) % this.props.images.length][1].path}
-            prevSrc={this.props.images[(this.state.photoIndex + this.props.images.length - 1) % this.props.images.length][1].path}
+            mainSrc={this.props.images[this.props.index][1].path}
+            nextSrc={this.props.images[(this.props.index + 1) % this.props.images.length][1].path}
+            prevSrc={this.props.images[(this.props.index + this.props.images.length - 1) % this.props.images.length][1].path}
             onCloseRequest={() => this.setState({ isOpen: false })}
             onMovePrevRequest={() =>
               this.setState({
-                photoIndex: (this.state.photoIndex + this.props.images.length - 1) % this.props.images.length,
+                photoIndex: (this.props.index + this.props.images.length - 1) % this.props.images.length,
               })
             }
             onMoveNextRequest={() =>
               this.setState({
-                photoIndex: (this.state.photoIndex + 1) % this.props.images.length,
+                photoIndex: (this.props.index + 1) % this.props.images.length,
               })
             }
           />
