@@ -13,7 +13,7 @@ console.log(this.props.images)
       this.props.images ? (  
       <div className={'imagesList'}>
         { this.props.images.map( (element,index) =>{
-        return (<div>
+        return (<div key={'imgDiv'+index}>
         <VisibilitySensor partialVisibility={true} key={index}>
           {({isVisible}) => 
           <div> {isVisible ? (
@@ -31,8 +31,8 @@ console.log(this.props.images)
             }
            </div>}
             </VisibilitySensor>
-              <ImageModal index={index}/>
-              <button onClick={()=>this.props.handleDelete(element[0])}>Delete</button>
+              <ImageModal index={index} key={'imageModal'+index}/>
+              <button onClick={()=>this.props.handleDelete(element[0])} key={'button'+index}>Delete</button>
             </div>)
           }
           )
