@@ -6,6 +6,13 @@ import { withUser } from '../../contexts/users/Users';
 import ImageModal from '../modal/ImageModal';
 
 class ImagesList extends Component {
+state={
+  openedModal: false,
+  imageIndex: null,
+  handleOpenModal: ()=>this.state.openedModal === false ? this.setState({openedModal: true}) : this.setState({openedModal: false}),
+}
+
+
 
   render() {
 console.log(this.props.images)
@@ -13,10 +20,12 @@ console.log(this.props.images)
       this.props.images ? (  
       <div className={'imagesList'}>
         { this.props.images.map( (element,index) =>{
-        return (<div key={'imgDiv'+index}>
+        return (<div key={'imgDiv'+index}
+        >
         <VisibilitySensor partialVisibility={true} key={index}>
           {({isVisible}) => 
-          <div> {isVisible ? (
+          <div
+          onClick={()=>this.setState({openedModal: true, imageIndex: index})}> {isVisible ? (
           
           <IronImage
               placeholder={element[1].thumbnail}
@@ -31,12 +40,12 @@ console.log(this.props.images)
             }
            </div>}
             </VisibilitySensor>
-              <ImageModal index={index} key={'imageModal'+index}/>
               <button onClick={()=>this.props.handleDelete(element[0])} key={'button'+index}>Delete</button>
             </div>)
           }
           )
       }
+      {this.state.openedModal && <ImageModal images={this.props.images} index={this.state.imageIndex} openedModal={this.state.openedModal} handleOpenModal={this.state.handleOpenModal}/>}
       </div>
     ): <p>nothing here</p>
   )
