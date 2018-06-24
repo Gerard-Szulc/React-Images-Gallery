@@ -5,11 +5,17 @@ import {withDatabase} from "./contexts/databaseContext/DatabaseContext";
 import {withUser} from "./contexts/users/Users";
 import SignInForm from './authentication/SignIn'
 import SignUpForm from './authentication/SignUp'
+import firebase from 'firebase'
+
 
 
 class App extends Component {
 
-
+  signOut = ()=> firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+  }).catch(function(error) {
+    // An error happened.
+  });
 
   render() {
     return (
@@ -24,6 +30,7 @@ class App extends Component {
        
     <header className="App-header">
          <h1>Your Gallery</h1>
+         <button onClick={this.signOut}>Sign Out</button>
         <input
           style={{display: 'none'}}
           type="file"
