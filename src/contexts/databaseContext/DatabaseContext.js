@@ -44,7 +44,7 @@ export class DatabaseProvider extends Component {
 
     },
     handleAllImagesDownload: ()=>{
-    const downloadEventHandler = firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/').on('value', snapshot=>{
+    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/').on('value', snapshot=>{
 
     snapshot.val() !== null && this.setState(
       {
@@ -67,7 +67,13 @@ componentDidMount(){
   })
 }
 componentWillUnmount(){
-  firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/').off('value', this.downloadEventHandler)
+  firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/').off('value', snapshot=>{
+
+    snapshot.val() !== null && this.setState(
+      {
+        images: Object.entries(snapshot.val())
+      })
+  })
 }
 
   render(){

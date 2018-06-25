@@ -34,10 +34,12 @@ export class ImageModal extends Component {
               })
             }
             toolbarButtons={[
-            <img src={process.env.PUBLIC_URL+'/flat-trash-can-icon-by-Vexels.svg'}
+            <img 
+              src={process.env.PUBLIC_URL+'/flat-trash-can-icon-by-Vexels.svg'}
               onClick={()=>{this.props.handleDelete(this.props.images[this.state.photoIndex][0])
                 this.props.handleOpenModal()
-              }} 
+              }}
+              alt={'delete button'} 
               key={'button'+this.state.photoIndex}
               className={'ril-close ril-toolbar__item__child ril__toolbarItemChild ril__builtinButton'}
               />]}
