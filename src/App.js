@@ -47,7 +47,7 @@ class App extends Component {
         </header>
         <ImagesList/>
       </div>
-      <footer><a href={"https://www.vexels.com/vectors/preview/132505/flat-trash-can-icon"}
+      <footer><a style={{visibility: 'hidden'}} href={"https://www.vexels.com/vectors/preview/132505/flat-trash-can-icon"}
         > Flat trash can icon </a>
          </footer></Fragment>)
     );
