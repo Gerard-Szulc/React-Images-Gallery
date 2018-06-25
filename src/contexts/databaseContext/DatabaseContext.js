@@ -30,7 +30,9 @@ export class DatabaseProvider extends Component {
           console.log(snapshot);
          
         
-    })
+    }).catch(function(error) {
+      console.log(error.message)
+    });
       this.setState({selectedFile: null})
 
     }
@@ -46,7 +48,9 @@ export class DatabaseProvider extends Component {
   })
   },
   handleDelete: imageRef=>{
-    firebase.database().ref('users/'+ firebase.auth().currentUser.uid +'/' + imageRef ).remove()
+    firebase.database().ref('users/'+ firebase.auth().currentUser.uid +'/' + imageRef ).remove().catch(function(error) {
+      console.log(error.message)
+    });
     this.state.images.length === 1 &&  this.setState({images: null}) 
   }
 }

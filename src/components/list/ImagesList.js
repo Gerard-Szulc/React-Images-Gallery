@@ -25,7 +25,7 @@ console.log(this.props.images)
         return (<div key={'imgDiv'+index}
         >
         <VisibilitySensor 
-        partialVisibility={true} 
+        partialVisibility={true}
         key={index}
         >
 
@@ -40,20 +40,16 @@ console.log(this.props.images)
               src={element[1].path}
               
               />
-            ) : (              
-          <IronImage
-            placeholder={element[1].thumbnail}
-            src={""}
-            />)
+            ) : (     ""         
+          // <IronImage
+          //   placeholder={element[1].thumbnail}
+          //   src={""}
+          //   />
+          )
             }
            </div>}
             </VisibilitySensor>
-              <button 
-              onClick={()=>this.props.handleDelete(element[0])} 
-              key={'button'+index}
-              >
-              Delete
-              </button>
+              
             </div>)
           }
           )
@@ -63,6 +59,7 @@ console.log(this.props.images)
       index={this.state.imageIndex} 
       openedModal={this.state.openedModal} 
       handleOpenModal={this.state.handleOpenModal}
+      handleDelete={this.props.handleDelete}
       />}
       </div>
     ): <p>nothing here</p>

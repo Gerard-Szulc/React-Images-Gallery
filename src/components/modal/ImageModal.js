@@ -33,6 +33,13 @@ export class ImageModal extends Component {
                 photoIndex: (this.state.photoIndex + 1) % this.props.images.length,
               })
             }
+            toolbarButtons={[
+            <button 
+              onClick={()=>this.props.handleDelete(this.props.images[this.state.photoIndex][0])} 
+              key={'button'+this.state.photoIndex}
+              >
+              Delete
+            </button>]}
           />
         )}
       </div>
