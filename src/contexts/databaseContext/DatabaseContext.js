@@ -47,7 +47,7 @@ export class DatabaseProvider extends Component {
       })
   })
   },
-  handleDelete: imageRef=>{
+  handleDelete: imageRef=>{this.state.images.length >= 1 &&
     firebase.database().ref('users/'+ firebase.auth().currentUser.uid +'/' + imageRef ).remove().catch(function(error) {
       console.log(error.message)
     });

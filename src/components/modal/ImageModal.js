@@ -17,7 +17,7 @@ export class ImageModal extends Component {
     return (
       <div>
         {this.props.openModal === true && this.props.handleOpenModal()}
-        {this.props.images && this.state.isOpen && (
+        {this.props.images && this.state.isOpen &&  (
           <Lightbox
             mainSrc={this.props.images[this.state.photoIndex][1].path}
             nextSrc={this.props.images[(this.state.photoIndex + 1) % this.props.images.length][1].path}
@@ -34,12 +34,13 @@ export class ImageModal extends Component {
               })
             }
             toolbarButtons={[
-            <button 
-              onClick={()=>this.props.handleDelete(this.props.images[this.state.photoIndex][0])} 
+            <img src={process.env.PUBLIC_URL+'/flat-trash-can-icon-by-Vexels.svg'}
+              onClick={()=>{this.props.handleDelete(this.props.images[this.state.photoIndex][0])
+                this.props.handleOpenModal()
+              }} 
               key={'button'+this.state.photoIndex}
-              >
-              Delete
-            </button>]}
+              className={'ril-close ril-toolbar__item__child ril__toolbarItemChild ril__builtinButton'}
+              />]}
           />
         )}
       </div>

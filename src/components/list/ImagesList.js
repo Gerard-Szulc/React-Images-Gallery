@@ -9,7 +9,7 @@ class ImagesList extends Component {
 state={
   openedModal: false,
   imageIndex: null,
-  handleOpenModal: ()=> this.state.openedModal === false ? this.setState({openedModal: true}) : this.setState({openedModal: false}) ,
+  handleOpenModal: ()=> {this.state.openedModal === false ? this.setState({openedModal: true}) : this.setState({openedModal: false})} ,
 }
 
 
@@ -40,16 +40,15 @@ console.log(this.props.images)
               src={element[1].path}
               
               />
-            ) : (     ""         
-          // <IronImage
-          //   placeholder={element[1].thumbnail}
-          //   src={""}
-          //   />
+            ) : (       
+          <IronImage
+            placeholder={element[1].thumbnail}
+            src={""}
+            />
           )
             }
            </div>}
             </VisibilitySensor>
-              
             </div>)
           }
           )

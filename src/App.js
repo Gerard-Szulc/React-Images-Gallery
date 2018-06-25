@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
 import ImagesList from "./components/list/ImagesList";
 import {withDatabase} from "./contexts/databaseContext/DatabaseContext";
@@ -25,7 +25,7 @@ class App extends Component {
               <SignInForm/>
               <SignUpForm/>
             </div>
-        ) : (
+        ) : (<Fragment>
         <div className="App">
        
     <header className="App-header">
@@ -43,7 +43,10 @@ class App extends Component {
         <p>{this.props.selectedFile && this.props.selectedFile.name}</p>
         </header>
         <ImagesList/>
-      </div>)
+      </div>
+      <footer><a href={"https://www.vexels.com/vectors/preview/132505/flat-trash-can-icon"}
+        > Flat trash can icon </a>
+         </footer></Fragment>)
     );
   }
 }
