@@ -27,7 +27,6 @@ class App extends Component {
             </div>
         ) : (<Fragment>
         <div className="App">
-       
     <header className="App-header">
          <h1>Your Gallery</h1>
          <button onClick={this.signOut}>Sign Out</button>
@@ -39,7 +38,11 @@ class App extends Component {
         ref={ fileInput => this.fileInput = fileInput}
         />
           <button onClick={()=>this.fileInput.click()}>Pick File</button>
-        <button onClick={this.props.hendleUploadFile}>Upload</button>
+        <button 
+        className={'uploadButton'}
+        onClick={this.props.hendleUploadFile}
+        style={{backgroundColor: this.props.uploadProgress === 100 ? 'green' : 'red'} }
+        >Upload</button>
         <p>{this.props.selectedFile && this.props.selectedFile.name}</p>
         </header>
         <ImagesList/>

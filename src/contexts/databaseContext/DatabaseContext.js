@@ -17,9 +17,11 @@ export class DatabaseProvider extends Component {
   state = {
     images: null,
     selectedFile: null,
+    uploadProgress: 0,
     handleFileChange: (event) => {
       this.setState({
-        selectedFile: event.target.files[0]
+        selectedFile: event.target.files[0],
+      uploadProgress: 0,
       })
     },
     hendleUploadFile: () => {
@@ -27,9 +29,12 @@ export class DatabaseProvider extends Component {
         const filesRef = storageRef.child(firebase.auth().currentUser.uid +'/' + this.state.selectedFile.name )
         console.log(this.state.selectedFile.name)
          filesRef.put(this.state.selectedFile).then(snapshot =>{
+          var progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
           console.log(snapshot);
+          console.log('Upload is ' + progress + '% done')
+          this.setState({uploadProgress: progress})
+          console.log(this.state.uploadProgress)
          
-        
     }).catch(function(error) {
       console.log(error.message)
     });
