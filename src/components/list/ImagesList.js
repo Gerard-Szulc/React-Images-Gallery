@@ -43,7 +43,7 @@ console.log(this.props.images)
             ) : (       
           <IronImage
             placeholder={element[1].thumbnail}
-            src={""}
+            src={element[1].thumbnail}
             />
           )
             }
