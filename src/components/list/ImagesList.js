@@ -9,7 +9,7 @@ class ImagesList extends Component {
 state={
   openedModal: false,
   imageIndex: null,
-  handleOpenModal: ()=>this.state.openedModal === false ? this.setState({openedModal: true}) : this.setState({openedModal: false}),
+  handleOpenModal: ()=> {this.state.openedModal === false ? this.setState({openedModal: true}) : this.setState({openedModal: false})} ,
 }
 
 
@@ -18,34 +18,48 @@ state={
 console.log(this.props.images)
     return (
       this.props.images ? (  
-      <div className={'imagesList'}>
-        { this.props.images.map( (element,index) =>{
+      <div 
+      className={'imagesList'}
+      >
+        {this.props.images.map( (element,index) =>{
         return (<div key={'imgDiv'+index}
         >
-        <VisibilitySensor partialVisibility={true} key={index}>
+        <VisibilitySensor 
+        partialVisibility={true}
+        key={index}
+        >
+
           {({isVisible}) => 
           <div
-          onClick={()=>this.setState({openedModal: true, imageIndex: index})}> {isVisible ? (
+          onClick={()=>this.setState({openedModal: true, imageIndex: index})}> 
+          
+          {isVisible ? (
           
           <IronImage
               placeholder={element[1].thumbnail}
               src={element[1].path}
               
               />
-            ) : (              
+            ) : (       
           <IronImage
             placeholder={element[1].thumbnail}
-            src={""}
-            />)
+            src={element[1].thumbnail}
+            />
+          )
             }
            </div>}
             </VisibilitySensor>
-              <button onClick={()=>this.props.handleDelete(element[0])} key={'button'+index}>Delete</button>
             </div>)
           }
           )
       }
-      {this.state.openedModal && <ImageModal images={this.props.images} index={this.state.imageIndex} openedModal={this.state.openedModal} handleOpenModal={this.state.handleOpenModal}/>}
+      {this.state.openedModal && <ImageModal 
+      images={this.props.images}
+      index={this.state.imageIndex} 
+      openedModal={this.state.openedModal} 
+      handleOpenModal={this.state.handleOpenModal}
+      handleDelete={this.props.handleDelete}
+      />}
       </div>
     ): <p>nothing here</p>
   )
