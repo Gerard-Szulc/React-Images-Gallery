@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://gerard-szulc.github.io/React-Images-Gallery",
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "firebase": "^5.0.4",
     "gh-pages": "^1.2.0",
     "react": "^16.4.0",

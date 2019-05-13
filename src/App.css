@@ -28,7 +28,6 @@
 div .iron-image{
   position: relative;
   height: 10rem;
-  width: auto;
 
 }
 div .iron-image img{
@@ -41,7 +40,12 @@ div.iron-image__container {
   margin: 0.2rem;
 
 }
+.gridList > div {
+  padding: 0px !important;
+  height: auto !important;
+}
 .imagesList{
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

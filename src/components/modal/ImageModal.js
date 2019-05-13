@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
- 
- 
- 
+
+
+
 export class ImageModal extends Component {
   state = {
       photoIndex: this.props.index,
       isOpen: this.props.openedModal,
     };
 
- 
+
   render() {
 
- 
+
     return (
       <div>
-        {this.props.openModal === true && this.props.handleOpenModal()}
+        {this.props.isOpen === true && this.props.handleOpenModal()}
         {this.props.images && this.state.isOpen &&  (
           <Lightbox
             mainSrc={this.props.images[this.state.photoIndex][1].path}
@@ -34,12 +34,12 @@ export class ImageModal extends Component {
               })
             }
             toolbarButtons={[
-            <img 
+            <img
               src={process.env.PUBLIC_URL+'/flat-trash-can-icon-by-Vexels.svg'}
               onClick={()=>{this.props.handleDelete(this.props.images[this.state.photoIndex][0])
                 this.props.handleOpenModal()
               }}
-              alt={'delete button'} 
+              alt={'delete button'}
               key={'button'+this.state.photoIndex}
               className={'ril-close ril-toolbar__item__child ril__toolbarItemChild ril__builtinButton'}
               />]}

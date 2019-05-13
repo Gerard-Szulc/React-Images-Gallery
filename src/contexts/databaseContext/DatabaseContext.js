@@ -10,7 +10,7 @@ firebase.initializeApp(config);
 
 const storage = firebase.storage()
 const storageRef = storage.ref()
- 
+
 
 export class DatabaseProvider extends Component {
 
@@ -30,11 +30,8 @@ export class DatabaseProvider extends Component {
         console.log(this.state.selectedFile.name)
          filesRef.put(this.state.selectedFile).then(snapshot =>{
           var progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
-          console.log(snapshot);
-          console.log('Upload is ' + progress + '% done')
           this.setState({uploadProgress: progress})
-          console.log(this.state.uploadProgress)
-         
+
     }).catch(function(error) {
       console.log(error.message)
     });
@@ -44,23 +41,34 @@ export class DatabaseProvider extends Component {
 
     },
     handleAllImagesDownload: ()=>{
-    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/').on('value', snapshot=>{
-
-    snapshot.val() !== null && this.setState(
-      {
-        images: Object.entries(snapshot.val())
-      })
+    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/').on('value', snapshot => {
+    let payload = snapshot.val()
+      if (payload !== null && payload !== undefined && payload.hasOwnProperty('images')) {
+        this.setState(
+            {
+              images: Object.entries(payload.images)
+            })
+      }
   })
   },
-  handleDelete: imageRef=>{this.state.images.length >= 1 &&
-    firebase.database().ref('users/'+ firebase.auth().currentUser.uid +'/' + imageRef ).remove().catch(function(error) {
-      console.log(error.message)
-    });
-    this.state.images.length === 1 &&  this.setState({images: null}) 
+  handleDelete: imageRef=>{
+      console.log('delete', imageRef, this.state.images)
+      if (this.state.images.length >= 1) {
+        firebase.database().ref('users/'+ firebase.auth().currentUser.uid +'/deleted/' + imageRef ).set(this.state.images.find(image => image[0] === imageRef)[1]).then(()=>{
+          firebase.database().ref('users/'+ firebase.auth().currentUser.uid +'/images/' + imageRef ).remove().catch(function(error) {
+            console.log(error.message)
+          });
+        }).catch(function(error) {
+          console.log(error.message)
+        });
+
+        this.state.images.length === 1 &&  this.setState({images: null})
+      }
+
   }
 }
 componentDidMount(){
-  firebase.auth().onAuthStateChanged(user=>{ 
+  firebase.auth().onAuthStateChanged(user=>{
     if (user){
      this.state.handleAllImagesDownload()
     }
